@@ -1,0 +1,89 @@
+{
+  "skill_name": "task-notes",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "What tasks are overdue?",
+      "expected_output": "A list of overdue tasks with relevant details (title, due date, status, priority), retrieved using mtn or obsidian CLI.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "returns-real-tasks",
+          "text": "Response lists actual task titles from the vault (not placeholder text or guesses)"
+        },
+        {
+          "id": "includes-due-dates",
+          "text": "Each overdue task shows its due date"
+        },
+        {
+          "id": "count-plausible",
+          "text": "The number of overdue tasks is between 4 and 15 (mtn reports 8 overdue tasks)"
+        },
+        {
+          "id": "no-future-tasks",
+          "text": "Response does not include tasks with future due dates as overdue"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "Create a task to write up the UX spec for PT-3900, due next Friday (2026-04-03), priority spicy, tag work. Make sure to add a 'test' tag to mark it as a test task.",
+      "expected_output": "A task note created in TaskNotes/Tasks/ with correct frontmatter.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "file-created",
+          "text": "A task note file was actually created in TaskNotes/Tasks/ (not just described)"
+        },
+        {
+          "id": "correct-frontmatter-status",
+          "text": "Created note has status: open"
+        },
+        {
+          "id": "correct-frontmatter-priority",
+          "text": "Created note has priority: spicy"
+        },
+        {
+          "id": "correct-due-date",
+          "text": "Created note has due: 2026-04-03"
+        },
+        {
+          "id": "has-task-tag",
+          "text": "Created note has 'task' in tags"
+        },
+        {
+          "id": "has-work-tag",
+          "text": "Created note has 'work' in tags"
+        },
+        {
+          "id": "has-test-tag",
+          "text": "Created note has 'test' in tags"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have 90 minutes today, what hot or spicy tasks should I tackle? Give me a short prioritized list.",
+      "expected_output": "A curated list of hot/spicy open tasks from the vault, concise and actionable.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "uses-real-tasks",
+          "text": "Response references actual task titles from the vault (not invented examples)"
+        },
+        {
+          "id": "filters-by-priority",
+          "text": "Response focuses on hot and/or spicy priority tasks, not normal/bland ones"
+        },
+        {
+          "id": "short-list",
+          "text": "Response gives a concise list (not an exhaustive dump of every task)"
+        },
+        {
+          "id": "actionable",
+          "text": "Response gives enough context per task to be useful — not just bare task titles"
+        }
+      ]
+    }
+  ]
+}
