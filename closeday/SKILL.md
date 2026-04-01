@@ -50,7 +50,18 @@ The timestamp is short (HH:MM only) — reconstruct the full datetime for git by
    - Cross-reference these file paths against the daily note content. Flag any files that were changed but not mentioned.
    - Skim flagged files for unfinished markers (`TODO`, `...`, incomplete bullets, abrupt endings). Read files that seem noteworthy.
    - Build a short list: which changed files are accounted for in the daily note, which are not, and which look potentially unfinished.
-4. Ask the user (if not already provided): "What did you work on today? Any new ideas or things to carry over?" — and present the git review findings so they can confirm or add context.
+4. **Audit repo health across `~/Developer/`:**
+   - Find all git repos: `find ~/Developer -maxdepth 2 -name ".git" -type d | sed 's|/.git||'`
+   - For each repo, check:
+     - **Uncommitted changes**: `git -C <repo> status --porcelain` — non-empty = dirty
+     - **Unpushed commits**: `git -C <repo> log @{u}..HEAD --oneline 2>/dev/null` — non-empty = unpushed (skip if no upstream)
+     - **Current branch**: `git -C <repo> branch --show-current` — flag if not `main` or `master`
+   - For each repo that needs attention, offer to fix it:
+     - Dirty repo → offer to commit (ask for a message or suggest one)
+     - Unpushed commits → offer to push
+     - Non-main branch → offer to switch to main and pull
+   - **If the user declines** because they're mid-work, that's fine — but note the repo and reason in the daily note under a **WIP Repos** section so it surfaces tomorrow with `/today`
+5. Ask the user (if not already provided): "What did you work on today? Any new ideas or things to carry over?" — and present the git review findings so they can confirm or add context.
 
 ## Composing and appending the summary
 
@@ -66,6 +77,7 @@ The summary should include:
 - **New ideas** — anything that came up worth remembering
 - **Carry over** — unfinished items that should surface tomorrow
 - **Loose ends** — files touched since `LAST_CLOSE` that look unfinished or weren't mentioned; brief note on their state so nothing falls through the cracks
+- **WIP Repos** (if any) — repos the user couldn't clean up because they're mid-work; one line per repo with branch and reason
 
 Also update task note statuses where work was completed:
 ```bash
