@@ -1,0 +1,15 @@
+{
+  "_comment": "Copy this file to ~/.config/closeday.json and fill in your values. The /closeday skill will guide you through this on first run.",
+
+  "repos_dir": "~/Developer",
+
+  "notes_app": "obsidian",
+
+  "_notes_app_options": "obsidian | markdown | none",
+
+  "obsidian_vault_path": "/path/to/your/vault",
+  "obsidian_vault_name": "Vault",
+
+  "_markdown_comment": "Use these instead if notes_app is 'markdown'",
+  "notes_dir": "~/Documents/closeday"
+}

@@ -5,84 +5,178 @@ description: Capture what happened today and what was learned. Counterpart to /t
 
 # /closeday
 
-Help the user close out their day by reviewing progress and updating their Obsidian vault at `/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault`.
+Help the user close out their day by reviewing progress and taking notes.
 
-## Step 0: Determine the review window
+## Step 0: Load config
 
-Before doing anything else, find the last close timestamp to know which git changes to include.
-
-**Find the most recent `*Closed:` timestamp** from any daily note in the vault:
+Check for config at `~/.config/closeday.json`:
 
 ```bash
-grep -r "^\*Closed: " "/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault/Daily/" 2>/dev/null | sort -r | head -1
+cat ~/.config/closeday.json 2>/dev/null
 ```
 
-This outputs something like:
+**If the file doesn't exist**, run first-time setup — ask the user:
+
+1. "What directory holds your repos?" (default: `~/Developer`)
+2. "How do you want to capture your daily close?"
+   - **obsidian** — writes to an Obsidian vault via the Obsidian CLI
+   - **markdown** — writes plain dated `.md` files to a folder you choose
+   - **none** — repo audit and summary shown in terminal only, nothing written to disk
+3. If `obsidian`: ask for the vault's absolute path and the vault name (the short name used in CLI commands, e.g. `Vault`)
+4. If `markdown`: ask where to save notes (default: `~/Documents/closeday`)
+
+Then write the config:
+
+```bash
+# obsidian example
+cat > ~/.config/closeday.json << 'EOF'
+{
+  "repos_dir": "~/Developer",
+  "notes_app": "obsidian",
+  "obsidian_vault_path": "/path/to/vault",
+  "obsidian_vault_name": "Vault"
+}
+EOF
+
+# markdown example
+cat > ~/.config/closeday.json << 'EOF'
+{
+  "repos_dir": "~/Developer",
+  "notes_app": "markdown",
+  "notes_dir": "~/Documents/closeday"
+}
+EOF
+
+# none example
+cat > ~/.config/closeday.json << 'EOF'
+{
+  "repos_dir": "~/Developer",
+  "notes_app": "none"
+}
+EOF
 ```
-/path/to/Daily/2026-03-22.md:*Closed: 17:30*
+
+Then continue with the steps below using the loaded config values.
+
+**Config fields:**
+| Field | Required | Description |
+|---|---|---|
+| `repos_dir` | always | Root directory to scan for git repos |
+| `notes_app` | always | `"obsidian"`, `"markdown"`, or `"none"` |
+| `obsidian_vault_path` | if obsidian | Absolute path to the vault |
+| `obsidian_vault_name` | if obsidian | Short vault name used in CLI commands |
+| `notes_dir` | if markdown | Directory where dated `.md` files are written |
+
+---
+
+## Step 1: Determine the review window
+
+Find the most recent `*Closed:` line from a previous close to know what's new since then:
+
+- **obsidian**: `grep -r "^\*Closed: " "<obsidian_vault_path>/Daily/" 2>/dev/null | sort -r | head -1`
+- **markdown**: `grep -r "^\*Closed: " "<notes_dir>/" 2>/dev/null | sort -r | head -1`
+- **none**: skip — use today at midnight as fallback
+
+The line looks like: `/path/to/2026-03-22.md:*Closed: 17:30*`
+
+Reconstruct the full datetime (`LAST_CLOSE`) by combining the date from the filename with the time from the line (e.g. `"2026-03-22 17:30"`). If nothing is found, fall back to `"$(date '+%Y-%m-%d') 00:00"`.
+
+---
+
+## Step 2: Read today's plan *(skip if `notes_app` is `"none"`)*
+
+- **obsidian**:
+  ```bash
+  obsidian vault=<obsidian_vault_name> daily:read 2>&1 | grep -v "representedObject\|Loading updated\|out of date\|installer\|Loaded main\|Ignored\|Checking\|Success\|Latest version\|App is up\|Obsidian\["
+  ```
+- **markdown**: read `<notes_dir>/$(date '+%Y-%m-%d').md` if it exists
+
+---
+
+## Step 3: Read in-progress tasks *(obsidian only)*
+
+Read task notes from `<obsidian_vault_path>/TaskNotes/Tasks/` — filter by `status: doing` — note whether progress was made on any of them.
+
+---
+
+## Step 4: Review notes/vault git changes since last close *(skip if `notes_app` is `"none"`)*
+
+- **obsidian**: review the vault repo
+  ```bash
+  git -C "<obsidian_vault_path>" log --since="LAST_CLOSE" --name-only --format="" | sort -u
+  git -C "<obsidian_vault_path>" status --short
+  ```
+- **markdown**: if `<notes_dir>` is a git repo, do the same; otherwise skip this step
+
+Cross-reference changed files against today's plan. Flag anything unmentioned or that looks unfinished (contains `TODO`, `...`, or has an abrupt ending). Build a short list: accounted for / unaccounted for / potentially unfinished.
+
+---
+
+## Step 5: Audit repo health across `repos_dir`
+
+Find all git repos:
+```bash
+find <repos_dir> -maxdepth 2 -name ".git" -type d | sed 's|/.git||'
 ```
 
-The timestamp is short (HH:MM only) — reconstruct the full datetime for git by extracting the date from the filename and combining it with the time:
-- Filename `2026-03-22.md` → date `2026-03-22`
-- Time from line: `17:30`
-- Combined `LAST_CLOSE`: `"2026-03-22 17:30"`
+For each repo, check:
+- **Uncommitted changes**: `git -C <repo> status --porcelain` — non-empty = dirty
+- **Unpushed commits**: `git -C <repo> log @{u}..HEAD --oneline 2>/dev/null` — non-empty = unpushed (skip if no upstream)
+- **Current branch**: `git -C <repo> branch --show-current` — flag if not `main` or `master`
 
-- If a `LAST_CLOSE` is found, use it as the `--since` argument for all git log commands below.
-- If no timestamp is found (first ever close), fall back to `"$(date '+%Y-%m-%d') 00:00"` (today at midnight).
+For each issue, offer to fix it:
+- Dirty → offer to commit (ask for a message or suggest one)
+- Unpushed → offer to push
+- Non-main branch → offer to switch to main and pull
 
-## Steps
+**If the user declines** because they're mid-work: note that repo and reason in the day's summary under **WIP Repos** so it surfaces tomorrow.
 
-1. Read today's daily note to see what was planned:
-   ```bash
-   obsidian vault=Vault daily:read 2>&1 | grep -v "representedObject\|Loading updated\|out of date\|installer\|Loaded main\|Ignored\|Checking\|Success\|Latest version\|App is up\|Obsidian\["
-   ```
-2. Read task notes for anything marked `status: doing` — check if progress was made.
-3. **Review git changes since last close:**
-   - Get files changed since `LAST_CLOSE`:
-     ```bash
-     git -C "/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault" \
-       log --since="LAST_CLOSE" --name-only --format="" | sort -u
-     ```
-   - Get currently modified/untracked files:
-     ```bash
-     git -C "/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault" status --short
-     ```
-   - Cross-reference these file paths against the daily note content. Flag any files that were changed but not mentioned.
-   - Skim flagged files for unfinished markers (`TODO`, `...`, incomplete bullets, abrupt endings). Read files that seem noteworthy.
-   - Build a short list: which changed files are accounted for in the daily note, which are not, and which look potentially unfinished.
-4. **Audit repo health across `~/Developer/`:**
-   - Find all git repos: `find ~/Developer -maxdepth 2 -name ".git" -type d | sed 's|/.git||'`
-   - For each repo, check:
-     - **Uncommitted changes**: `git -C <repo> status --porcelain` — non-empty = dirty
-     - **Unpushed commits**: `git -C <repo> log @{u}..HEAD --oneline 2>/dev/null` — non-empty = unpushed (skip if no upstream)
-     - **Current branch**: `git -C <repo> branch --show-current` — flag if not `main` or `master`
-   - For each repo that needs attention, offer to fix it:
-     - Dirty repo → offer to commit (ask for a message or suggest one)
-     - Unpushed commits → offer to push
-     - Non-main branch → offer to switch to main and pull
-   - **If the user declines** because they're mid-work, that's fine — but note the repo and reason in the daily note under a **WIP Repos** section so it surfaces tomorrow with `/today`
-5. Ask the user (if not already provided): "What did you work on today? Any new ideas or things to carry over?" — and present the git review findings so they can confirm or add context.
+---
 
-## Composing and appending the summary
+## Step 6: Ask what happened
 
-Get the current time, then append to today's daily note. The timestamp **must be the first line after `## Day Close`** — this is what future `/closeday` runs use to find the review window boundary:
+Ask the user (if not already provided): "What did you work on today? Any new ideas or things to carry over?" — and present the findings from the steps above so they can confirm or add context.
 
+---
+
+## Composing and saving the summary
+
+Build the close summary:
+- **Progress** — what actually got done
+- **New ideas** — anything worth remembering
+- **Carry over** — unfinished items to pick up tomorrow
+- **Loose ends** — changed files that look unfinished or weren't mentioned *(obsidian/markdown only)*
+- **WIP Repos** (if any) — repos that couldn't be cleaned up; one line per repo with branch and reason
+
+Then save based on `notes_app`:
+
+**obsidian:**
 ```bash
 CLOSE_TIME=$(date '+%H:%M')
-obsidian vault=Vault daily:append content="\n\n## Day Close\n*Closed: $CLOSE_TIME*\n\n[summary here]"
+obsidian vault=<obsidian_vault_name> daily:append content="\n\n## Day Close\n*Closed: $CLOSE_TIME*\n\n[summary]"
 ```
-
-The summary should include:
-- **Progress** — what actually got done (check off completed steps if applicable)
-- **New ideas** — anything that came up worth remembering
-- **Carry over** — unfinished items that should surface tomorrow
-- **Loose ends** — files touched since `LAST_CLOSE` that look unfinished or weren't mentioned; brief note on their state so nothing falls through the cracks
-- **WIP Repos** (if any) — repos the user couldn't clean up because they're mid-work; one line per repo with branch and reason
-
-Also update task note statuses where work was completed:
+Also update completed task note statuses:
 ```bash
-obsidian vault=Vault property:set name=status value=done path=TaskNotes/Tasks/[task].md
-obsidian vault=Vault property:set name=dateModified value=[today ISO] path=TaskNotes/Tasks/[task].md
+obsidian vault=<obsidian_vault_name> property:set name=status value=done path=TaskNotes/Tasks/[task].md
+obsidian vault=<obsidian_vault_name> property:set name=dateModified value=[today ISO] path=TaskNotes/Tasks/[task].md
 ```
+
+**markdown:**
+```bash
+CLOSE_TIME=$(date '+%H:%M')
+NOTES_FILE="<notes_dir>/$(date '+%Y-%m-%d').md"
+mkdir -p "<notes_dir>"
+cat >> "$NOTES_FILE" << EOF
+
+## Day Close
+*Closed: $CLOSE_TIME*
+
+[summary]
+EOF
+```
+
+**none:** Display the full summary in the terminal. Nothing is written to disk.
+
+---
 
 End with a clean list of what to pick up tomorrow.
