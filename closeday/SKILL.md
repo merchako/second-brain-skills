@@ -81,6 +81,25 @@ The line looks like: `/path/to/2026-03-22.md:*Closed: 17:30*`
 
 Reconstruct the full datetime (`LAST_CLOSE`) by combining the date from the filename with the time from the line (e.g. `"2026-03-22 17:30"`). If nothing is found, fall back to `"$(date '+%Y-%m-%d') 00:00"`.
 
+Then compute the **period label** used in the summary heading:
+
+```bash
+LAST_DATE=$(echo "$LAST_CLOSE" | awk '{print $1}')   # e.g. 2026-03-28
+TODAY=$(date '+%Y-%m-%d')
+
+if [ "$LAST_DATE" != "$TODAY" ]; then
+  # Multi-day gap — format as a date range
+  # macOS date parsing:
+  START_LABEL=$(python3 -c "from datetime import date; d=date.fromisoformat('$LAST_DATE'); print(d.strftime('%b %-d'))")
+  END_LABEL=$(python3 -c "from datetime import date; d=date.today(); print(d.strftime('%b %-d'))")
+  PERIOD_LABEL="$START_LABEL – $END_LABEL"
+else
+  PERIOD_LABEL=$(python3 -c "from datetime import date; d=date.today(); print(d.strftime('%b %-d'))")
+fi
+```
+
+Use `PERIOD_LABEL` wherever the day close is titled (e.g. `## Day Close — Mar 28 – Apr 1` vs `## Day Close — Apr 1`). Also mention the multi-day gap to the user so they're aware the summary covers several days.
+
 ---
 
 ## Step 2: Read today's plan *(skip if `notes_app` is `"none"`)*
@@ -153,8 +172,26 @@ Then save based on `notes_app`:
 **obsidian:**
 ```bash
 CLOSE_TIME=$(date '+%H:%M')
-obsidian vault=<obsidian_vault_name> daily:append content="\n\n## Day Close\n*Closed: $CLOSE_TIME*\n\n[summary]"
+
+# 1. Append the Day Close section (date range in heading if multi-day)
+obsidian vault=<obsidian_vault_name> daily:append content="\n\n## Day Close — $PERIOD_LABEL\n*Closed: $CLOSE_TIME*\n\n[summary]"
+
+# 2. Insert a log entry into the ## Log section of today's daily note.
+#    Format matches the QuickAdd "Log" template: blank line, @HH:MM, then bullet(s).
+DAILY_FILE="<obsidian_vault_path>/Daily/$(date '+%Y-%m-%d').md"
+python3 - <<PYEOF
+import re
+path = "$DAILY_FILE"
+content = open(path).read()
+entry = "\n@$CLOSE_TIME\n- /closeday: $ONE_LINE_SUMMARY\n"
+# Insert immediately after the '## Log' heading line
+content = re.sub(r'(## Log\n)', r'\1' + entry, content, count=1)
+open(path, 'w').write(content)
+PYEOF
 ```
+
+Before running the Python block, set `ONE_LINE_SUMMARY` to a single concise sentence (≤ 10 words) describing what was done during the close period.
+
 Also update completed task note statuses:
 ```bash
 obsidian vault=<obsidian_vault_name> property:set name=status value=done path=TaskNotes/Tasks/[task].md
@@ -168,7 +205,7 @@ NOTES_FILE="<notes_dir>/$(date '+%Y-%m-%d').md"
 mkdir -p "<notes_dir>"
 cat >> "$NOTES_FILE" << EOF
 
-## Day Close
+## Day Close — $PERIOD_LABEL
 *Closed: $CLOSE_TIME*
 
 [summary]
