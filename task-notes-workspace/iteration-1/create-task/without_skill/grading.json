@@ -1,0 +1,41 @@
+{
+  "eval_id": 1,
+  "run": "without_skill",
+  "expectations": [
+    {
+      "text": "A task note file was actually created in TaskNotes/Tasks/ (not just described)",
+      "passed": true,
+      "evidence": "File created at TaskNotes/Tasks/Write UX spec for PT-3900.md (later overwritten by with_skill run)"
+    },
+    {
+      "text": "Created note has status: open",
+      "passed": false,
+      "evidence": "Used status: 'do' instead of 'open' — copied pattern from existing PT- notes in vault which use 'do'"
+    },
+    {
+      "text": "Created note has priority: spicy",
+      "passed": true,
+      "evidence": "priority: spicy confirmed in created_task.md"
+    },
+    {
+      "text": "Created note has due: 2026-04-03",
+      "passed": true,
+      "evidence": "due: 2026-04-03 confirmed in created_task.md"
+    },
+    {
+      "text": "Created note has 'task' in tags",
+      "passed": true,
+      "evidence": "tags includes 'task'"
+    },
+    {
+      "text": "Created note has 'work' in tags",
+      "passed": true,
+      "evidence": "tags includes 'work'"
+    },
+    {
+      "text": "Created note has 'test' in tags",
+      "passed": true,
+      "evidence": "tags includes 'test'"
+    }
+  ]
+}

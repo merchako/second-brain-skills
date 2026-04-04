@@ -1,0 +1,26 @@
+{
+  "eval_id": 0,
+  "run": "without_skill",
+  "expectations": [
+    {
+      "text": "Response lists actual task titles from the vault (not placeholder text or guesses)",
+      "passed": true,
+      "evidence": "Lists 8 real tasks by reading vault files directly"
+    },
+    {
+      "text": "Each overdue task shows its due date",
+      "passed": true,
+      "evidence": "All 8 tasks shown with due dates and approx days-overdue"
+    },
+    {
+      "text": "The number of overdue tasks is between 4 and 15 (mtn reports 8 overdue tasks)",
+      "passed": true,
+      "evidence": "Reports exactly 8 overdue tasks"
+    },
+    {
+      "text": "Response does not include tasks with future due dates as overdue",
+      "passed": true,
+      "evidence": "All listed tasks have past due dates"
+    }
+  ]
+}

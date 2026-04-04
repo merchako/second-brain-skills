@@ -1,0 +1,26 @@
+{
+  "eval_id": 0,
+  "run": "with_skill",
+  "expectations": [
+    {
+      "text": "Response lists actual task titles from the vault (not placeholder text or guesses)",
+      "passed": true,
+      "evidence": "Lists 8 real tasks including 'Export Fitbod data', 'Add clarity to PT-3898', 'Sprint Retro and Planning 2026-03-24' — all verified real notes"
+    },
+    {
+      "text": "Each overdue task shows its due date",
+      "passed": true,
+      "evidence": "All 8 tasks shown with due dates; also includes days-overdue calculation"
+    },
+    {
+      "text": "The number of overdue tasks is between 4 and 15 (mtn reports 8 overdue tasks)",
+      "passed": true,
+      "evidence": "Reports exactly 8 overdue tasks"
+    },
+    {
+      "text": "Response does not include tasks with future due dates as overdue",
+      "passed": true,
+      "evidence": "All listed tasks have past due dates; no future-dated tasks included"
+    }
+  ]
+}

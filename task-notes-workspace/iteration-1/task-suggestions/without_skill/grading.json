@@ -1,0 +1,26 @@
+{
+  "eval_id": 2,
+  "run": "without_skill",
+  "expectations": [
+    {
+      "text": "Response references actual task titles from the vault (not invented examples)",
+      "passed": true,
+      "evidence": "Lists PT-3898, PT-3562, draft message to parents, Kirkwood Eye Center — all real notes"
+    },
+    {
+      "text": "Response focuses on hot and/or spicy priority tasks, not normal/bland ones",
+      "passed": true,
+      "evidence": "All suggestions are hot or spicy; explicitly noted what to skip"
+    },
+    {
+      "text": "Response gives a concise list (not an exhaustive dump of every task)",
+      "passed": true,
+      "evidence": "4-item list with time estimates and a 'what to skip' section"
+    },
+    {
+      "text": "Response gives enough context per task to be useful — not just bare task titles",
+      "passed": true,
+      "evidence": "Each item has time estimate, why it matters, and next action — very actionable"
+    }
+  ]
+}

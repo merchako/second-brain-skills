@@ -1,0 +1,26 @@
+{
+  "eval_id": 2,
+  "run": "with_skill",
+  "expectations": [
+    {
+      "text": "Response references actual task titles from the vault (not invented examples)",
+      "passed": true,
+      "evidence": "Lists PT-3898, PT-3562, PT-3900 — all verified real task notes"
+    },
+    {
+      "text": "Response focuses on hot and/or spicy priority tasks, not normal/bland ones",
+      "passed": true,
+      "evidence": "All suggestions are hot or spicy; used mtn list --priority hot and --priority spicy"
+    },
+    {
+      "text": "Response gives a concise list (not an exhaustive dump of every task)",
+      "passed": true,
+      "evidence": "4-item prioritized list with clear structure"
+    },
+    {
+      "text": "Response gives enough context per task to be useful — not just bare task titles",
+      "passed": true,
+      "evidence": "Each item includes status, priority, due date, and a brief rationale"
+    }
+  ]
+}

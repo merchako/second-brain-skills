@@ -1,0 +1,35 @@
+{
+  "eval_id": 1,
+  "eval_name": "create-task",
+  "prompt": "Create a task to write up the UX spec for PT-3900, due next Friday (2026-04-03), priority spicy, tag work. Make sure to add a 'test' tag to mark it as a test task.",
+  "assertions": [
+    {
+      "id": "file-created",
+      "text": "A task note file was actually created in TaskNotes/Tasks/ (not just described)"
+    },
+    {
+      "id": "correct-frontmatter-status",
+      "text": "Created note has status: open"
+    },
+    {
+      "id": "correct-frontmatter-priority",
+      "text": "Created note has priority: spicy"
+    },
+    {
+      "id": "correct-due-date",
+      "text": "Created note has due: 2026-04-03"
+    },
+    {
+      "id": "has-task-tag",
+      "text": "Created note has 'task' in tags"
+    },
+    {
+      "id": "has-work-tag",
+      "text": "Created note has 'work' in tags"
+    },
+    {
+      "id": "has-test-tag",
+      "text": "Created note has 'test' in tags (marks it as a test task)"
+    }
+  ]
+}

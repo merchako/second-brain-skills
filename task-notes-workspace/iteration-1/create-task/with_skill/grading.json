@@ -1,0 +1,41 @@
+{
+  "eval_id": 1,
+  "run": "with_skill",
+  "expectations": [
+    {
+      "text": "A task note file was actually created in TaskNotes/Tasks/ (not just described)",
+      "passed": true,
+      "evidence": "File confirmed at TaskNotes/Tasks/Write UX spec for PT-3900.md"
+    },
+    {
+      "text": "Created note has status: open",
+      "passed": true,
+      "evidence": "status: open in final file (agent corrected from 'do' after obsidian CLI created it)"
+    },
+    {
+      "text": "Created note has priority: spicy",
+      "passed": true,
+      "evidence": "priority: spicy confirmed in file"
+    },
+    {
+      "text": "Created note has due: 2026-04-03",
+      "passed": true,
+      "evidence": "due: 2026-04-03 confirmed in file"
+    },
+    {
+      "text": "Created note has 'task' in tags",
+      "passed": true,
+      "evidence": "tags includes 'task'"
+    },
+    {
+      "text": "Created note has 'work' in tags",
+      "passed": true,
+      "evidence": "tags includes 'work'"
+    },
+    {
+      "text": "Created note has 'test' in tags",
+      "passed": true,
+      "evidence": "tags includes 'test'"
+    }
+  ]
+}

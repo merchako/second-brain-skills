@@ -1,0 +1,323 @@
+{
+  "metadata": {
+    "skill_name": "task-notes",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-03-27T23:13:23Z",
+    "evals_run": [
+      0,
+      1,
+      2
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 36.5,
+        "tokens": 18966,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Response lists actual task titles from the vault (not placeholder text or guesses)",
+          "passed": true,
+          "evidence": "Lists 8 real tasks including 'Export Fitbod data', 'Add clarity to PT-3898', 'Sprint Retro and Planning 2026-03-24' \u2014 all verified real notes"
+        },
+        {
+          "text": "Each overdue task shows its due date",
+          "passed": true,
+          "evidence": "All 8 tasks shown with due dates; also includes days-overdue calculation"
+        },
+        {
+          "text": "The number of overdue tasks is between 4 and 15 (mtn reports 8 overdue tasks)",
+          "passed": true,
+          "evidence": "Reports exactly 8 overdue tasks"
+        },
+        {
+          "text": "Response does not include tasks with future due dates as overdue",
+          "passed": true,
+          "evidence": "All listed tasks have past due dates; no future-dated tasks included"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 185.9,
+        "tokens": 19781,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A task note file was actually created in TaskNotes/Tasks/ (not just described)",
+          "passed": true,
+          "evidence": "File confirmed at TaskNotes/Tasks/Write UX spec for PT-3900.md"
+        },
+        {
+          "text": "Created note has status: open",
+          "passed": true,
+          "evidence": "status: open in final file (agent corrected from 'do' after obsidian CLI created it)"
+        },
+        {
+          "text": "Created note has priority: spicy",
+          "passed": true,
+          "evidence": "priority: spicy confirmed in file"
+        },
+        {
+          "text": "Created note has due: 2026-04-03",
+          "passed": true,
+          "evidence": "due: 2026-04-03 confirmed in file"
+        },
+        {
+          "text": "Created note has 'task' in tags",
+          "passed": true,
+          "evidence": "tags includes 'task'"
+        },
+        {
+          "text": "Created note has 'work' in tags",
+          "passed": true,
+          "evidence": "tags includes 'work'"
+        },
+        {
+          "text": "Created note has 'test' in tags",
+          "passed": true,
+          "evidence": "tags includes 'test'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 66.2,
+        "tokens": 19515,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Response references actual task titles from the vault (not invented examples)",
+          "passed": true,
+          "evidence": "Lists PT-3898, PT-3562, PT-3900 \u2014 all verified real task notes"
+        },
+        {
+          "text": "Response focuses on hot and/or spicy priority tasks, not normal/bland ones",
+          "passed": true,
+          "evidence": "All suggestions are hot or spicy; used mtn list --priority hot and --priority spicy"
+        },
+        {
+          "text": "Response gives a concise list (not an exhaustive dump of every task)",
+          "passed": true,
+          "evidence": "4-item prioritized list with clear structure"
+        },
+        {
+          "text": "Response gives enough context per task to be useful \u2014 not just bare task titles",
+          "passed": true,
+          "evidence": "Each item includes status, priority, due date, and a brief rationale"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 56.5,
+        "tokens": 21737,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Response lists actual task titles from the vault (not placeholder text or guesses)",
+          "passed": true,
+          "evidence": "Lists 8 real tasks by reading vault files directly"
+        },
+        {
+          "text": "Each overdue task shows its due date",
+          "passed": true,
+          "evidence": "All 8 tasks shown with due dates and approx days-overdue"
+        },
+        {
+          "text": "The number of overdue tasks is between 4 and 15 (mtn reports 8 overdue tasks)",
+          "passed": true,
+          "evidence": "Reports exactly 8 overdue tasks"
+        },
+        {
+          "text": "Response does not include tasks with future due dates as overdue",
+          "passed": true,
+          "evidence": "All listed tasks have past due dates"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.857,
+        "passed": 6,
+        "failed": 1,
+        "total": 7,
+        "time_seconds": 48.2,
+        "tokens": 18297,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A task note file was actually created in TaskNotes/Tasks/ (not just described)",
+          "passed": true,
+          "evidence": "File created at TaskNotes/Tasks/Write UX spec for PT-3900.md (later overwritten by with_skill run)"
+        },
+        {
+          "text": "Created note has status: open",
+          "passed": false,
+          "evidence": "Used status: 'do' instead of 'open' \u2014 copied pattern from existing PT- notes in vault which use 'do'"
+        },
+        {
+          "text": "Created note has priority: spicy",
+          "passed": true,
+          "evidence": "priority: spicy confirmed in created_task.md"
+        },
+        {
+          "text": "Created note has due: 2026-04-03",
+          "passed": true,
+          "evidence": "due: 2026-04-03 confirmed in created_task.md"
+        },
+        {
+          "text": "Created note has 'task' in tags",
+          "passed": true,
+          "evidence": "tags includes 'task'"
+        },
+        {
+          "text": "Created note has 'work' in tags",
+          "passed": true,
+          "evidence": "tags includes 'work'"
+        },
+        {
+          "text": "Created note has 'test' in tags",
+          "passed": true,
+          "evidence": "tags includes 'test'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 90.3,
+        "tokens": 45565,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Response references actual task titles from the vault (not invented examples)",
+          "passed": true,
+          "evidence": "Lists PT-3898, PT-3562, draft message to parents, Kirkwood Eye Center \u2014 all real notes"
+        },
+        {
+          "text": "Response focuses on hot and/or spicy priority tasks, not normal/bland ones",
+          "passed": true,
+          "evidence": "All suggestions are hot or spicy; explicitly noted what to skip"
+        },
+        {
+          "text": "Response gives a concise list (not an exhaustive dump of every task)",
+          "passed": true,
+          "evidence": "4-item list with time estimates and a 'what to skip' section"
+        },
+        {
+          "text": "Response gives enough context per task to be useful \u2014 not just bare task titles",
+          "passed": true,
+          "evidence": "Each item has time estimate, why it matters, and next action \u2014 very actionable"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 96.2,
+        "stddev": 79.0891,
+        "min": 36.5,
+        "max": 185.9
+      },
+      "tokens": {
+        "mean": 19420.6667,
+        "stddev": 415.6084,
+        "min": 18966,
+        "max": 19781
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.9523,
+        "stddev": 0.0826,
+        "min": 0.857,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 65.0,
+        "stddev": 22.3,
+        "min": 48.2,
+        "max": 90.3
+      },
+      "tokens": {
+        "mean": 28533.0,
+        "stddev": 14850.0898,
+        "min": 18297,
+        "max": 45565
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.05",
+      "time_seconds": "+31.2",
+      "tokens": "-9112"
+    }
+  },
+  "notes": []
+}

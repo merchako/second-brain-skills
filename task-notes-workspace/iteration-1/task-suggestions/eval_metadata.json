@@ -1,0 +1,23 @@
+{
+  "eval_id": 2,
+  "eval_name": "task-suggestions",
+  "prompt": "I have 90 minutes today, what hot or spicy tasks should I tackle? Give me a short prioritized list.",
+  "assertions": [
+    {
+      "id": "uses-real-tasks",
+      "text": "Response references actual task titles from the vault (not invented examples)"
+    },
+    {
+      "id": "filters-by-priority",
+      "text": "Response focuses on hot and/or spicy priority tasks, not normal/bland ones"
+    },
+    {
+      "id": "short-list",
+      "text": "Response gives a concise list (not an exhaustive dump of every task)"
+    },
+    {
+      "id": "actionable",
+      "text": "Response gives enough context per task to be useful — not just bare task titles"
+    }
+  ]
+}

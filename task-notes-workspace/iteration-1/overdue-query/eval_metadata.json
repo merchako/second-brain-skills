@@ -1,0 +1,23 @@
+{
+  "eval_id": 0,
+  "eval_name": "overdue-query",
+  "prompt": "What tasks are overdue?",
+  "assertions": [
+    {
+      "id": "returns-real-tasks",
+      "text": "Response lists actual task titles from the vault (not placeholder text or guesses)"
+    },
+    {
+      "id": "includes-due-dates",
+      "text": "Each overdue task shows its due date"
+    },
+    {
+      "id": "count-plausible",
+      "text": "The number of overdue tasks is between 4 and 15 (mtn reports 8 overdue tasks in this vault)"
+    },
+    {
+      "id": "no-future-tasks",
+      "text": "Response does not include tasks with future due dates as overdue"
+    }
+  ]
+}
