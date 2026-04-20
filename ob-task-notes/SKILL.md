@@ -41,29 +41,39 @@ Two tools are available — prefer them in this order:
 ---
 
 ## Task Schema
-
+Described in https://tasknotes.dev/spec/02-model-and-mapping/
 ```yaml
+title: Review quarterly report
 status: do            # do | doing | done | waiting | none
 priority: bland       # hot | spicy | mild | bland | none
 due: 2026-04-01       # ISO date, optional
-scheduled: ""         # ISO date, optional
+scheduled: 2026-03-29         # ISO date, optional
 dateCreated: 2026-03-27T00:00:00.000Z
 dateModified: 2026-03-27T00:00:00.000Z
 tags:
   - task              # always required
-  - work              # add contextual tags freely
   - GenAI             # add if you write the full note content
+contexts: 
+  - "@work"              # classify where or how a task belongs
+  - "@desk"              
 projects:
-  - "[[Related Note]]"
+  - "[[Related Note]]"   # a wikilink to TaskNote, optional
+```
+The frontmatter contains structured, queryable properties. The note body holds freeform content—research findings, meeting notes, checklists, or links to related documents.
+
+```mermaid
+stateDiagram-v2
+  title Tasknotes Status Flow
+  [*] --> none
+  none --> do : queued, ready to start
+  do --> doing : actively in progress
+  doing --> waiting : blocked on something external
+  waiting --> doing
+  doing --> done : complete
+  done --> [*]
 ```
 
-**Status flow:** `do` → `doing` → `done`
-- `do` — queued, ready to start
-- `doing` — actively in progress
-- `done` — complete
-- `waiting` — blocked on something external
-
-**Priority:** `hot` (urgent), `spicy` (this week), `mild`, `bland` (someday)
+**Priority:** `hot` (serious consequences if not done), `spicy`, `mild`, `bland` (no consequences if not done)
 
 ---
 
@@ -100,7 +110,7 @@ Output is JSON with `tasks[]` array, each having `id`, `title`, `status`,
 
 ## Creating a Task (tasks.py)
 
-Use explicit fields — no NLP parsing, fully deterministic:
+Use explicit fields to be deterministic, not depending on NLP parsing:
 
 ```bash
 $TASKS create "Task title" \

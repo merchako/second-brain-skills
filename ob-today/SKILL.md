@@ -10,7 +10,14 @@ source_notes: "[[Notes/Adding Second Brain Skills to Claude Code]], [[Notes/How 
 
 # /ob-today
 
-Read the user's Obsidian vault at `/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault` and generate a prioritized plan for today.
+Get recent info from the user's Obsidian vault to generate a daily brief for today:
+- prioritized plan
+- 3 days of reminders and look-aheads
+- inferred blind spots, opportunities, and missed connections
+
+Obsidian vault = `/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault`
+Task manager = Tasks plugin in Obsidian, with tasks stored in `TaskNotes/Tasks/`. Docs - 
+
 
 Steps:
 1. Read today's daily note: `obsidian vault=Vault daily:read 2>&1 | grep -v "representedObject\|Loading updated\|out of date\|installer\|Loaded main\|Ignored\|Checking\|Success\|Latest version\|App is up\|Obsidian\["`
