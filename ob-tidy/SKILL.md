@@ -63,13 +63,13 @@ For each note to process:
 |--------|---------------|
 | Has `tags: [task]` or `status: do/doing/done` frontmatter | Task note — use task note template |
 | Prefixed `To Do:`, `TODO`, `- [ ]` or tagged `#idea` (actionable) | Task fragment → promote to new task note |
-| Tagged `#concept` or is an abstract principle/framework | Concept note → `Zettlekasten/Concepts/` |
+| Tagged `#concept` or is an abstract principle/framework | Concept note → `Zettelkasten/Concepts/` |
 | Looks like a meeting (attendees, agenda, action items) | Meeting note → promote if long/complex |
-| Direct quote with attribution | Quote note → `Zettlekasten/Quotes/` |
-| From a book/article/video/newsletter | Source note → `Zettlekasten/Sources/` |
-| About a person | People note → `Zettlekasten/People/` |
-| About a place | Places note → `Zettlekasten/Places/` |
-| About an organization (school, church, company, group) | Org note → `Zettlekasten/Organizations/` |
+| Direct quote with attribution | Quote note → `Zettelkasten/Quotes/` |
+| From a book/article/video/newsletter | Source note → `Zettelkasten/Sources/` |
+| About a person | People note → `Zettelkasten/People/` |
+| About a place | Places note → `Zettelkasten/Places/` |
+| About an organization (school, church, company, group) | Org note → `Zettelkasten/Organizations/` |
 | Tagged `#inbox` | Unprocessed — apply this full workflow |
 | In `Inbox/` folder | Homeless draft — classify and move |
 
@@ -82,7 +82,7 @@ For each note to process:
 Promote a fragment OUT of the current note when ANY of the following are true:
 - It would take more than ~5 minutes to act on (i.e., it's a real task, not a quick action)
 - It is an `#idea` (actionable) — always promote to a task note
-- It is a `#concept` — always promote to Zettlekasten/Concepts/
+- It is a `#concept` — always promote to Zettelkasten/Concepts/
 - It has 3+ sentences or multiple sub-points (too complex to live inline)
 - It is meeting notes with more than a couple lines
 - It is a direct quote
@@ -183,7 +183,7 @@ tags:
 ```
 
 ### New Concept Note
-Create at `Zettlekasten/Concepts/[Concept Name].md`:
+Create at `Zettelkasten/Concepts/[Concept Name].md`:
 ```yaml
 ---
 date: YYYY-MM-DD
@@ -201,7 +201,7 @@ related:
 ```
 
 ### New Quote Note
-Create at `Zettlekasten/Quotes/[Short Quote].md`:
+Create at `Zettelkasten/Quotes/[Short Quote].md`:
 ```yaml
 ---
 date: YYYY-MM-DD
@@ -224,7 +224,7 @@ related: []
 Create at `Meetings/[Date] - [Meeting Name].md` using the Meeting Template structure (status, priority, date, dateCreated, dateModified, tags: meeting, attendees, Agenda, Notes, Action Items sections).
 
 ### New People/Places/Organizations/Sources Note
-Use the People Template for people. For other types, follow the frontmatter schema above, placing in the correct Zettlekasten subfolder.
+Use the People Template for people. For other types, follow the frontmatter schema above, placing in the correct Zettelkasten subfolder.
 
 ### After creating each promoted note
 In the original note, replace the promoted fragment with a wikilink:
@@ -284,10 +284,10 @@ List the proposed changes there. The user can respond inline and you'll detect i
 
 ---
 
-## Zettlekasten folder structure
+## Zettelkasten folder structure
 
 ```
-Zettlekasten/
+Zettelkasten/
   Concepts/         ← abstract ideas, principles, frameworks
   People/           ← individuals
   Places/           ← physical locations
@@ -299,7 +299,7 @@ Zettlekasten/
     Videos/         ← YouTube, talks, podcasts
 ```
 
-Note: vault uses the spelling `Zettlekasten` (not `Zettelkasten`).
+Note: vault uses the spelling `Zettelkasten`.
 
 ---
 

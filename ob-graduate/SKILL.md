@@ -21,15 +21,15 @@ Steps:
 2. Identify ideas that:
    - Appear more than once across days (recurring = important)
    - Are phrased as insights, claims, or questions worth developing
-   - Don't already have a home in Zettlekasten/ or Projects/
+   - Don't already have a home in Zettelkasten/ or Projects/
 3. For each candidate idea, check if a note already exists:
    ```bash
    obsidian vault=Vault search query="[idea key terms]" format=json 2>&1 | grep -v ...
    ```
 
-For each idea that deserves its own note, create a standalone file in `Zettlekasten/` using the Write tool or:
+For each idea that deserves its own note, create a standalone file in `Zettelkasten/` using the Write tool or:
 ```bash
-obsidian vault=Vault create path=Zettlekasten/ name="[Idea Title]" content="..."
+obsidian vault=Vault create path=Zettelkasten/ name="[Idea Title]" content="..."
 ```
 
 Each new note should include:

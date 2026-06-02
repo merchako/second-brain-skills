@@ -17,7 +17,7 @@ Steps:
    ```bash
    obsidian vault=Vault tags counts format=json 2>&1 | grep -v "representedObject\|Loading updated\|out of date\|installer\|Loaded main\|Ignored\|Checking\|Success\|Latest version\|App is up\|Obsidian\["
    ```
-2. Search for repeated words or phrases that appear across multiple unrelated folders (Daily, Zettlekasten, Projects, TaskNotes) — look for semantic overlap, not just exact matches
+2. Search for repeated words or phrases that appear across multiple unrelated folders (Daily, Zettelkasten, Projects, TaskNotes) — look for semantic overlap, not just exact matches
 3. Find notes that have no obvious home — orphaned notes or notes linked from many different contexts:
    ```bash
    obsidian vault=Vault deadends format=json 2>&1 | grep -v ...

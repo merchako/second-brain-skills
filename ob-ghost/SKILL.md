@@ -19,7 +19,7 @@ Then:
    ```bash
    obsidian vault=Vault search:context query="[key terms from question]" format=json 2>&1 | grep -v "representedObject\|Loading updated\|out of date\|installer\|Loaded main\|Ignored\|Checking\|Success\|Latest version\|App is up\|Obsidian\["
    ```
-2. Read the most relevant notes — especially from Zettlekasten/, daily notes, and any notes where the user reflects or states opinions
+2. Read the most relevant notes — especially from Zettelkasten/, daily notes, and any notes where the user reflects or states opinions
 3. Note the user's voice: how they phrase things, what they value, what they push back on
 4. Look for direct quotes or strong statements that bear on the question
 

@@ -16,7 +16,7 @@ Steps:
 1. Get a vault overview: `obsidian vault=Vault vault 2>&1 | grep -v "representedObject\|Loading updated\|out of date\|installer\|Loaded main\|Ignored\|Checking\|Success\|Latest version\|App is up\|Obsidian\["`
 2. Check tags for recurring themes: `obsidian vault=Vault tags counts format=json 2>&1 | ...`
 3. Read recent daily notes (past 14 days) for mentions of ideas, questions, things to try
-4. Scan Zettlekasten/ for underdeveloped notes that point outward
+4. Scan Zettelkasten/ for underdeveloped notes that point outward
 5. Look for notes with lots of backlinks — high-gravity ideas that keep attracting connections
 6. Check `Projects/` for anything stalled or aspirational
 

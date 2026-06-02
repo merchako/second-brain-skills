@@ -19,13 +19,13 @@ Steps:
    ```
 2. Find notes with high backlink counts — these are gravitational centers of idea clusters:
    ```bash
-   obsidian vault=Vault properties path=Zettlekasten format=json 2>&1 | grep -v ...
+   obsidian vault=Vault properties path=Zettelkasten format=json 2>&1 | grep -v ...
    ```
 3. Check for unresolved links — topics the user references but hasn't written yet (latent demand):
    ```bash
    obsidian vault=Vault unresolved format=json 2>&1 | grep -v ...
    ```
-4. Read recent daily notes and Zettlekasten notes to find ideas that are being revisited and refined
+4. Read recent daily notes and Zettelkasten notes to find ideas that are being revisited and refined
 5. Look at Projects/ for anything aspirational that now has supporting notes elsewhere in the vault
 
 Output: what's emerging?
