@@ -59,19 +59,19 @@ For each note to process:
 
 ### Note classification rules
 
-| Signal | Classification |
-|--------|---------------|
-| Has `tags: [task]` or `status: do/doing/done` frontmatter | Task note — use task note template |
+| Signal                                                            | Classification                           |
+| ----------------------------------------------------------------- | ---------------------------------------- |
+| Has `tags: [task]` or `status: do/doing/done` frontmatter         | Task note — use task note template       |
 | Prefixed `To Do:`, `TODO`, `- [ ]` or tagged `#idea` (actionable) | Task fragment → promote to new task note |
-| Tagged `#concept` or is an abstract principle/framework | Concept note → `Zettelkasten/Concepts/` |
-| Looks like a meeting (attendees, agenda, action items) | Meeting note → promote if long/complex |
-| Direct quote with attribution | Quote note → `Zettelkasten/Quotes/` |
-| From a book/article/video/newsletter | Source note → `Zettelkasten/Sources/` |
-| About a person | People note → `Zettelkasten/People/` |
-| About a place | Places note → `Zettelkasten/Places/` |
-| About an organization (school, church, company, group) | Org note → `Zettelkasten/Organizations/` |
-| Tagged `#inbox` | Unprocessed — apply this full workflow |
-| In `Inbox/` folder | Homeless draft — classify and move |
+| Tagged `#concept` or is an abstract principle/framework           | Concept note → `Zettelkasten/Concepts/`  |
+| Looks like a meeting (attendees, agenda, action items)            | Meeting note → promote if long/complex   |
+| Direct quote with attribution                                     | Quote note → `Zettelkasten/Quotes/`      |
+| From a book/article/video/newsletter                              | Source note → `Zettelkasten/Sources/`    |
+| About a person                                                    | People note → `Zettelkasten/People/`     |
+| About a place                                                     | Places note → `Zettelkasten/Places/`     |
+| About an organization (school, church, company, group)            | Org note → `Zettelkasten/Organizations/` |
+| Tagged `#inbox`                                                   | Unprocessed — apply this full workflow   |
+| In `Inbox/` folder                                                | Homeless draft — classify and move       |
 
 **Ambiguous ideas**: if a fragment has no `#idea`/`#concept` tag and you cannot determine whether it's actionable or conceptual, embed a question (see Step 3) rather than guessing.
 
