@@ -160,7 +160,7 @@ If a push hangs or times out, retry once before escalating — this vault's git 
 
 ### 10. Log it
 
-A short daily-log bullet pointing at the relevant note (or a work session note, if it's a sizeable batch) — per `.claude/work-session-notes.md`. Don't skip this even for a two-video addition; the stop-hook session-doc-check will catch it if you do.
+A short daily-log bullet pointing at the relevant note — that's it for a normal capture (one video, or a couple). **Don't create a work session note for this.** A capture isn't "work that will produce more content than fits in a daily log bullet" per `.claude/work-session-notes.md`; the daily bullet + source note + related-note link already cover where-it-lives and what-happened. Only step up to a work session note for a genuinely sizeable batch (e.g. the original 2026-09-29 run of 35+ videos) where there's real narrative beyond the links themselves. Don't skip the daily-log bullet even for a two-video addition — the stop-hook session-doc-check will catch it if you do.
 
 ## Worked example: physio exercise videos
 
