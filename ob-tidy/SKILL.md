@@ -319,7 +319,7 @@ grep -rl "#inbox" "/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Docum
 
 ## Important constraints
 
-- **Never commit to `main` directly** — always use a `cleanup/YYYY-MM-DD` branch
+- **Default to a `cleanup/YYYY-MM-DD` branch** so Alex can review; commit to `main` only if Alex asks
 - **Never overwrite without a commit** — all changes must be in git before telling the user to review
 - **Preserve the user's voice** — fix errors and structure, but don't rewrite their meaning or tone
 - **Ask rather than assume** when classification is ambiguous — embed `%% TIDY: ... %%` comments
