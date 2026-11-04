@@ -33,10 +33,9 @@ Do NOT run on notes that are already clean and structured unless the user asks.
 
 ## Step 0: Setup — create a cleanup branch
 
-Before making any changes, create a dated cleanup branch so all changes are reviewable in VSCode before merging.
+For complex changes, create a dated cleanup branch (if you can) so all changes are reviewable in VSCode before merging. For `ob-tidy main` or simple changes, skip this step and commit to `main`.
 
 ```bash
-VAULT="/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
 BRANCH="cleanup/$(date '+%Y-%m-%d')"
 
 # If branch already exists today, append a counter
