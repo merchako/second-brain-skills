@@ -138,7 +138,7 @@ A multi-file project gets a folder whose **hub** is a task note inside it, named
 
 - **Create** a hub by writing the file from the vault's `Templates/Project Hub Template.md` (not with `tasks.py create`, which files into `TaskNotes/Tasks/`). Set `title` to exactly the folder name and keep the `task` and `project` tags. TaskNotes finds tasks by tag, so the hub still shows up in every view.
 - **Sub-tasks** stay in `TaskNotes/Tasks/`: `$TASKS create "…" --project "<Name>"`.
-- **Close** a hub with `status: done`. **Never archive a hub**: the Archive action moves it out of its folder.
+- **Close** a hub with `status: done` (or archive it). TaskNotes tags it `archived`; the vault's `Scripts/archive-sweep.py` then moves the whole project folder to `Projects/Archive/<Name>/`. TaskNotes' own "move archived tasks" setting is off, so archived tasks stay put until the sweep runs (every 10 min while Obsidian is open). Never move archived files by hand.
 - **Rename** a hub only by renaming its folder in Obsidian (Notebook Navigator renames both and rewrites links). Never `mv` a project folder or hub from the shell.
 - Don't add `project_dir` (legacy) or make a `README.md` hub.
 
@@ -158,7 +158,7 @@ $TASKS update "TaskNotes/Tasks/My task.md" --priority hot --due 2026-04-01
 # Mark done
 $TASKS complete "TaskNotes/Tasks/My task.md"
 
-# Archive (never a project hub; see "Project hubs")
+# Archive (adds the `archived` tag; Scripts/archive-sweep.py moves the file)
 $TASKS archive "TaskNotes/Tasks/My task.md"
 ```
 
