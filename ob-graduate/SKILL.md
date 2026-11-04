@@ -21,7 +21,7 @@ Steps:
 2. Identify ideas that:
    - Appear more than once across days (recurring = important)
    - Are phrased as insights, claims, or questions worth developing
-   - Don't already have a home in Zettelkasten/ or Projects/
+   - Don't already have a home in Zettelkasten/ or a `Projects/<Name>/` folder
 3. For each candidate idea, check if a note already exists:
    ```bash
    obsidian vault=Vault search query="[idea key terms]" format=json 2>&1 | grep -v ...

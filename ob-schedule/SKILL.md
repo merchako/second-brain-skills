@@ -22,7 +22,7 @@ Steps:
    - Read frontmatter for `due`, `scheduled`, and `priority` fields
 3. Identify hot and spicy tasks — these anchor the schedule
 4. Check for any overdue tasks (due before today)
-5. Look at Projects/ for active work that needs time this week
+5. Look at active project hubs (notes tagged `project` under `Projects/`, not `Projects/Archive/`) for work that needs time this week
 
 Output a suggested weekly schedule:
 - **Must do this week** — overdue, hot priority, or scheduled for this week

@@ -12,7 +12,7 @@ source_notes: "[[Notes/Adding Second Brain Skills to Claude Code]], [[Notes/How 
 
 Read the Obsidian vault at `/Users/merc/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault` and summarize the user's current context. Include:
 
-- Active projects (check `Projects/` and task notes with `status: open` or `status: doing` in `TaskNotes/Tasks/`)
+- Active projects (hubs: notes tagged `project` under `Projects/`, not `Projects/Archive/`; plus task notes with `status: open` or `status: doing` in `TaskNotes/Tasks/`)
 - Recent reflections and themes from daily notes in the past 7 days (`Daily/`)
 - Any priorities, goals, or focus areas mentioned in the last 7 days
 - Hot and spicy priority tasks (priority: hot or spicy in frontmatter)

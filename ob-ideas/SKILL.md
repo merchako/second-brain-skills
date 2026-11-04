@@ -18,7 +18,7 @@ Steps:
 3. Read recent daily notes (past 14 days) for mentions of ideas, questions, things to try
 4. Scan Zettelkasten/ for underdeveloped notes that point outward
 5. Look for notes with lots of backlinks — high-gravity ideas that keep attracting connections
-6. Check `Projects/` for anything stalled or aspirational
+6. Check project hubs (tagged `project` under `Projects/`; skip `Projects/Archive/`) for anything stalled or aspirational
 
 Generate a structured idea report with four sections:
 - **Tools to build** — software, systems, or automations the user has hinted at wanting

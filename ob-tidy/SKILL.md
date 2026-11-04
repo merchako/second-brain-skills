@@ -70,6 +70,7 @@ For each note to process:
 | About a person                                                    | People note → `Zettelkasten/People/`     |
 | About a place                                                     | Places note → `Zettelkasten/Places/`     |
 | About an organization (school, church, company, group)            | Org note → `Zettelkasten/Organizations/` |
+| Exists for one multi-file project (a draft, capture, receipt for it) | Move into `Projects/<Name>/` per the vault's `Meta/Project Folder Convention.md` (move with `obsidian move`, never `mv`) |
 | Tagged `#inbox`                                                   | Unprocessed — apply this full workflow   |
 | In `Inbox/` folder                                                | Homeless draft — classify and move       |
 

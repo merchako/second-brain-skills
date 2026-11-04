@@ -26,7 +26,7 @@ Steps:
    obsidian vault=Vault unresolved format=json 2>&1 | grep -v ...
    ```
 4. Read recent daily notes and Zettelkasten notes to find ideas that are being revisited and refined
-5. Look at Projects/ for anything aspirational that now has supporting notes elsewhere in the vault
+5. Look at project hubs (tagged `project` under `Projects/`; skip `Projects/Archive/`) for anything aspirational that now has supporting notes elsewhere in the vault
 
 Output: what's emerging?
 - Name each cluster (2–5 words)
