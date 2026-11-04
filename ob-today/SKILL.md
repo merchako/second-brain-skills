@@ -24,10 +24,12 @@ Steps:
 2. Read open and in-progress task notes from `TaskNotes/Tasks/` — filter by `status: open` or `status: doing`
 3. Surface any priorities, intentions, or focus areas mentioned in daily notes from the past 7 days
 4. Check for overdue tasks (due date before today, 2026-03-21 format)
+5. List in-progress projects from the Bases view: `obsidian vault=Vault base:query path="Bases/Project Hub.base" view="Active Projects" format=md` (open project hubs, `doing` then `waiting`, with priority and due). Each name is a folder `Projects/<Name>/`; read a hub only if it bears on today.
 
 Output a prioritized plan for today:
 - Lead with hot/spicy priority tasks and anything overdue
 - Group remaining tasks by project or theme
+- Add a short **Active projects** list from step 5: one line each, `doing` first, with due dates; flag a `waiting` project that has been waiting long or has a due date this week
 - Note any intentions or focus the user set for this week
 - Flag anything that looks like it should happen today based on scheduled dates
 
