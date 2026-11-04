@@ -29,7 +29,7 @@ Steps:
 Output a prioritized plan for today:
 - Lead with hot/spicy priority tasks and anything overdue
 - Group remaining tasks by project or theme
-- Add a short **Active projects** list from step 5: one line each, `doing` first, with due dates; flag a `waiting` project that has been waiting long or has a due date this week
+- Add a short **Active projects (as of YYYY-MM-DD)** list from step 5: one line each, `doing` first, with due dates; flag a `waiting` project that has been waiting long or has a due date this week. Write it as plain text, never as a Bases embed: the daily note is a record of that day, and an embed would show whatever is active when the note is reopened. Date it with the day you ran the query; if that isn't the note's date, say so.
 - Note any intentions or focus the user set for this week
 - Flag anything that looks like it should happen today based on scheduled dates
 
