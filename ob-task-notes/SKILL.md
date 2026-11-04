@@ -132,6 +132,18 @@ Returns JSON with `data.path` (the created file path) and `data.id`.
 
 ---
 
+## Project hubs
+
+A multi-file project gets a folder whose **hub** is a task note inside it, named after the folder: `Projects/<Name>/<Name>.md`. The vault's `Meta/Project Folder Convention.md` is the full rule; read it before touching a project folder.
+
+- **Create** a hub by writing the file from the vault's `Templates/Project Hub Template.md` (not with `tasks.py create`, which files into `TaskNotes/Tasks/`). Set `title` to exactly the folder name and keep the `task` and `project` tags. TaskNotes finds tasks by tag, so the hub still shows up in every view.
+- **Sub-tasks** stay in `TaskNotes/Tasks/`: `$TASKS create "…" --project "<Name>"`.
+- **Close** a hub with `status: done`. **Never archive a hub**: the Archive action moves it out of its folder.
+- **Rename** a hub only by renaming its folder in Obsidian (Notebook Navigator renames both and rewrites links). Never `mv` a project folder or hub from the shell.
+- Don't add `project_dir` (legacy) or make a `README.md` hub.
+
+---
+
 ## Updating a Task (tasks.py)
 
 Use the task's file path as the ID:
@@ -146,7 +158,7 @@ $TASKS update "TaskNotes/Tasks/My task.md" --priority hot --due 2026-04-01
 # Mark done
 $TASKS complete "TaskNotes/Tasks/My task.md"
 
-# Archive
+# Archive (never a project hub; see "Project hubs")
 $TASKS archive "TaskNotes/Tasks/My task.md"
 ```
 
